@@ -1,15 +1,18 @@
-name: Daily Script
+name: Birthday Wisher
 
 on:
   schedule:
-
-    - cron: '0 4 * * *'
-
+    - cron: '35 3 * * *'
   workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
+    
+    # Colocando aqui, tudo abaixo tem acesso garantido:
+    env:
+      MY_EMAIL: ${{ secrets.MY_EMAIL }}
+      MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
 
     steps:
       - name: Checkout repository
@@ -25,8 +28,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # PASSO DE TESTE: Vai nos dizer se o GitHub achou os secrets
+      - name: Verificar se Secrets existem
+        run: |
+          if [ -z "$MY_EMAIL" ]; then
+            echo "❌ ERRO: O segredo MY_EMAIL está VAZIO no GitHub!"
+          else
+            echo "✅ Segredo MY_EMAIL foi encontrado!"
+          fi
+
       - name: Run script
-        env:
-          MY_EMAIL: ${{ secrets.MY_EMAIL }}
-          MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
         run: python main.py
