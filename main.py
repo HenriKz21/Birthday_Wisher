@@ -27,6 +27,8 @@ if today_tuple in birthdays_dict:
     with open(file_path) as letter_file:
         contents = letter_file.read()
         contents = contents.replace("[NAME]", birthday_person["name"])
+        print(f"Status do Email: {MY_EMAIL is not None}")
+        print(f"Status da Senha: {MY_PASSWORD is not None}")
 
     with smtplib.SMTP("smtp.gmail.com", 587) as connection:
         connection.starttls()
