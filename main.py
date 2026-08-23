@@ -13,7 +13,7 @@ import smtplib
 import os
 
 MY_EMAIL = os.environ.get("pydiscover570@gmail.com")
-MY_PASSWORD = os.environ.get("txco bvgc ndlo dbxu")
+MY_PASSWORD = os.environ.get("txcobvgcndlodbxu")
 
 today = datetime.now()
 today_tuple = (today.month, today.day)
